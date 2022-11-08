@@ -1,5 +1,5 @@
     icl './atari.inc'
-    icl './MIDIMate_drv.a65'
+    ; icl './MIDIMate_drv.a65'
 
     icl './midi_data.a65'
 
