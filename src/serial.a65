@@ -1,0 +1,38 @@
+    icl './atari.inc'
+    icl './MIDIMate_drv.a65'
+
+    icl './midi_data.a65'
+
+;--------------------------------------------------
+
+    .local main
+
+	icl './fifo.inc'
+
+    ORG $4000
+
+start:
+; preset FIFO head & tail
+    lda #<midi_data.head
+    sta FIFO_HEAD
+    lda #<midi_data.tail
+    sta FIFO_TAIL
+
+    jsr $2001
+
+    jsr $2004
+
+wait_on_transmission_done:
+	LDA XMTDON
+	BEQ wait_on_transmission_done
+
+    jsr $2007
+
+    RTS
+
+init_drv:
+    rts
+
+    .endl
+
+    RUN main.start
